@@ -11,6 +11,7 @@ public class VideoPlayer {
   private Video videoCurrentlyPlaying;
   private boolean isCurrentlyPlaying;
   private boolean isPaused;
+  private HashMap<String, VideoPlaylist> allPlaylists = new HashMap<String, VideoPlaylist>();
 
   public VideoPlayer() {
     this.videoLibrary = new VideoLibrary();
@@ -119,10 +120,12 @@ public class VideoPlayer {
   }
 
   public void showPlaying() {
-    String title = videoCurrentlyPlaying.getTitle();
-    String id = videoCurrentlyPlaying.getVideoId();
+    if (videoCurrentlyPlaying != null) {
 
-    List<String> tags = videoCurrentlyPlaying.getTags();
+      String title = videoCurrentlyPlaying.getTitle();
+      String id = videoCurrentlyPlaying.getVideoId();
+
+      List<String> tags = videoCurrentlyPlaying.getTags();
 
       if (tags.size() > 0) {
         StringBuffer sb = new StringBuffer();
@@ -141,10 +144,19 @@ public class VideoPlayer {
       } else {
         System.out.println("Currently playing: " + "  " + title + " (" + id + ")");
       }
+    } else {
+      System.out.println("No video currently playing");
+    }
   }
 
   public void createPlaylist(String playlistName) {
-    System.out.println("createPlaylist needs implementation");
+
+    if (allPlaylists.containsKey(playlistName.toLowerCase())) {
+      System.out.println("Cannot create playlist: a playlist with the same name already exists");
+    } else {
+      allPlaylists.put(playlistName, new VideoPlaylist(playlistName));
+      System.out.println("Successfully created new playlist: " + playlistName);
+    }
   }
 
   public void addVideoToPlaylist(String playlistName, String videoId) {
