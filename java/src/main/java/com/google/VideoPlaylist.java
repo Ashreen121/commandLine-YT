@@ -11,4 +11,16 @@ class VideoPlaylist {
     public VideoPlaylist(String name) {
         playlistName = name;
     }
+
+    public String getName() {
+        return this.playlistName;
+    }
+
+    public ArrayList<Video> getPlaylist() {
+        return this.playlistName;
+    }
+
+    // public boolean isInPlaylist() {
+        
+    // }
 }
